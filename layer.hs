@@ -12,7 +12,7 @@ learnSampleLayer ns (xs, ys) = zipWith (\n y -> learnSample n (xs, y)) ns ys
 
 -- Trains each neuron with the given samples
 learnSamplesLayer :: [Neuron] -> [([Double], [Double])] -> [Neuron]
-learnSamplesLayer ns samples = foldl learnSampleLayer ns samples
+learnSamplesLayer = foldl' learnSampleLayer
 
 -- Returns the quadratic error of a layer for a given sample
 quadError :: [Neuron] -> ([Double], [Double]) -> Double
