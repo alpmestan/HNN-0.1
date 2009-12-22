@@ -33,7 +33,8 @@ backProp nss (xs, ys) = [aux (head nss) ds_hidden xs
       output_hidden = computeLayer (head nss) xs
       output_out = computeLayer (nss !! 1) output_hidden
       ds_out = zipWithU (\s y -> s * (1 - s) * (y - s)) output_out ys
-      ds_hidden = zipWithU (\x s -> x * (1-x) * s) output_hidden $ toU (map (sumU . zipWithU (*) ds_out . weights) (nss !! 1))
+      -- ds_hidden = zipWithU (\x s -> x * (1-x) * s) output_hidden $ toU (map (sumU . zipWithU (*) ds_out . weights) (nss !! 1))
+      ds_hidden = zipWithU (\x s -> x * (1-x) * s) output_hidden . toU $ map (sumU . zipWithU (*) ds_out) . map toU . transpose . map (fromU . weights) $ (nss !! 1)
       aux ns ds xs = zipWith (\n d -> n { weights = zipWithU (\w x -> w + alpha * d * x) (weights n) xs }) ns (fromU ds)
 
 trainAux :: [[Neuron]] -> [(UArr Double, UArr Double)] -> [[Neuron]]
