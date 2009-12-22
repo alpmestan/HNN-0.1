@@ -15,7 +15,7 @@ nn nss | check nss = nss
 
 -- | Computes the output of the given neural net on the given inputs
 computeNet :: [[Neuron]] -> UArr Double -> UArr Double
-computeNet neuralss xs = let nss = nn neuralss in computeLayer (nss !! 1) $ computeLayer (nss !! 0) xs
+computeNet neuralss xs = let nss = nn neuralss in computeLayer (nss !! 1) $ computeLayer (head nss) xs
                  
 -- | Returns the quadratic error of the neural network on the given sample
 quadErrorNet :: [[Neuron]] -> (UArr Double, UArr Double) -> Double
@@ -23,17 +23,17 @@ quadErrorNet nss (xs,ys) = (sumU . zipWithU (\y s -> (y - s)**2) ys $ computeNet
 
 -- | Returns the quadratic error of the neural network on the given samples
 globalQuadErrorNet :: [[Neuron]] -> [(UArr Double, UArr Double)] -> Double
-globalQuadErrorNet nss samples = sum $ map (quadErrorNet nss) samples
+globalQuadErrorNet nss = sum . map (quadErrorNet nss)
 
 -- | Train the given neural network using the backpropagation algorithm on the given sample
 backProp :: [[Neuron]] -> (UArr Double, UArr Double) -> [[Neuron]]
-backProp nss (xs, ys) = [aux (nss !! 0) ds_hidden xs
+backProp nss (xs, ys) = [aux (head nss) ds_hidden xs
                         ,aux (nss !! 1) ds_out output_hidden]
     where 
       output_hidden = computeLayer (head nss) xs
       output_out = computeLayer (nss !! 1) output_hidden
       ds_out = zipWithU (\s y -> s * (1 - s) * (y - s)) output_out ys
-      ds_hidden = zipWithU (\x s -> x * (1-x) * s) output_hidden $ toU (map (\ws -> sumU $ zipWithU (*) ds_out ws) (map weights $ nss !! 1))
+      ds_hidden = zipWithU (\x s -> x * (1-x) * s) output_hidden $ toU (map (sumU . zipWithU (*) ds_out . weights) (nss !! 1))
       aux ns ds xs = zipWith (\n d -> n { weights = zipWithU (\w x -> w + alpha * d * x) (weights n) xs }) ns (fromU ds)
 
 trainAux :: [[Neuron]] -> [(UArr Double, UArr Double)] -> [[Neuron]]

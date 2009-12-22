@@ -35,12 +35,12 @@ heavyside _ = 0.0
 
 -- | The Sigmoid function
 sigmoid :: Double -> Double
-sigmoid x = 1.0 / (1 + (exp $ -x))
+sigmoid x = 1.0 / (1 + exp (-x))
 
 -- | Computes the output of a given Neuron for given inputs
 compute :: Neuron -> UArr Double -> Double
-compute n inputs | lengthU inputs == (lengthU $ weights n) 
-                     = func n $ (sumU $ zipWithU (*) (weights n) inputs) - (threshold n)
+compute n inputs | lengthU inputs == lengthU (weights n) 
+                     = func n $ sumU (zipWithU (*) (weights n) inputs) - threshold n
 compute n inputs = error $ "Number of inputs != Number of weights\n" ++ show n ++ "\nInput : " ++ show inputs
 
 
