@@ -1,4 +1,5 @@
-module Main where
+-- | Net module, defining functions to work on a neural network, which is a list of list of neurons 
+module Net where
 
 import Layer
 import Neuron
@@ -10,21 +11,21 @@ check nss = let l = length nss in l > 1 && l < 3
 
 nn :: [[Neuron]] -> [[Neuron]]
 nn nss | check nss = nss
-       | otherwise = error "Invalided nn"
+       | otherwise = error "Invalid nn"
 
---- computeLayer is [Neuron] -> [Double] -> [Double]
---- Neuron is { threshold :: Double, weight :: [Double], func :: Double -> Double o
-
--- Computes the output of the given neural net
+-- | Computes the output of the given neural net on the given inputs
 computeNet :: [[Neuron]] -> UArr Double -> UArr Double
 computeNet neuralss xs = let nss = nn neuralss in computeLayer (nss !! 1) $ computeLayer (nss !! 0) xs
                  
+-- | Returns the quadratic error of the neural network on the given sample
 quadErrorNet :: [[Neuron]] -> (UArr Double, UArr Double) -> Double
 quadErrorNet nss (xs,ys) = (sumU . zipWithU (\y s -> (y - s)**2) ys $ computeNet nss xs)/2.0
 
+-- | Returns the quadratic error of the neural network on the given samples
 globalQuadErrorNet :: [[Neuron]] -> [(UArr Double, UArr Double)] -> Double
 globalQuadErrorNet nss samples = sum $ map (quadErrorNet nss) samples
 
+-- | Train the given neural network using the backpropagation algorithm on the given sample
 backProp :: [[Neuron]] -> (UArr Double, UArr Double) -> [[Neuron]]
 backProp nss (xs, ys) = [aux (nss !! 0) ds_hidden xs
                         ,aux (nss !! 1) ds_out output_hidden]
@@ -38,35 +39,6 @@ backProp nss (xs, ys) = [aux (nss !! 0) ds_hidden xs
 trainAux :: [[Neuron]] -> [(UArr Double, UArr Double)] -> [[Neuron]]
 trainAux = foldl' backProp
 
+-- | Train the given neural network on the given samples using the backpropagation algorithm
 train :: [[Neuron]] -> [(UArr Double, UArr Double)] -> [[Neuron]]
 train nss samples = until (\nss' -> globalQuadErrorNet nss' samples < (0.1 :: Double)) (\nss' -> trainAux nss' samples) nss
-
-{- TEST -}
-{-
-test_net :: [[Neuron]]
-test_net = [[createNeuronSigmoid 0.5 [0.1, -0.1], createNeuronSigmoid 0.5 [0.1, -0.1]], [createNeuronSigmoid 0.5 [0.5, 0.5]]]
-
-samples :: [([Double], [Double)]
-samples = [([0.0, 0.0], [0.0])
-          ,([1.0, 1.0], [0.0])
-          ,([1.0, 0.0], [1.0])
-          ,([0.0, 1.0], [1.0])]
-
-final_net = train test_net samples
-
-test_output = [computeNet final_net [0.0, 0.0], computeNet final_net [1.0, 1.0]
-              ,computeNet final_net [1.0, 0.0], computeNet final_net [0.0, 1.0]]
-
-main = do
-  putStrLn "Test output"
-  putStrLn . show $ test_output
-  putStrLn "-------------------"
-  putStrLn "Final net"
-  putStrLn . show $ final_net
-
-{-
-
-final_net == test_net
-
--}
--}

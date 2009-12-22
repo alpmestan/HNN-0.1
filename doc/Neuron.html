@@ -1,0 +1,588 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--Rendered using the Haskell Html Library v0.2-->
+<HTML
+><HEAD
+><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"
+><TITLE
+>Neuron</TITLE
+><LINK HREF="haddock.css" REL="stylesheet" TYPE="text/css"
+><SCRIPT SRC="haddock-util.js" TYPE="text/javascript"
+></SCRIPT
+><SCRIPT TYPE="text/javascript"
+>window.onload = function () {setSynopsis("mini_Neuron.html")};</SCRIPT
+></HEAD
+><BODY
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="topbar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><IMG SRC="haskell_icon.gif" WIDTH="16" HEIGHT="16" ALT=" "
+></TD
+><TD CLASS="title"
+></TD
+><TD CLASS="topbut"
+><A HREF="index.html"
+>Contents</A
+></TD
+><TD CLASS="topbut"
+><A HREF="doc-index.html"
+>Index</A
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="modulebar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><FONT SIZE="6"
+>Neuron</FONT
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+><B
+>Contents</B
+></TD
+></TR
+><TR
+><TD
+><DL
+><DT
+><A HREF="#1"
+>Type Definitions and typeclass instances
+</A
+></DT
+><DT
+><A HREF="#2"
+>Single Neuron learning with Widrow-Hoff (Delta rule)
+</A
+></DT
+></DL
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+>Description</TD
+></TR
+><TR
+><TD CLASS="doc"
+>Neuron module, defining an artificial neuron type and the basical operations we can do on it
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+>Synopsis</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+>  <A HREF="#t%3ANeuron"
+>Neuron</A
+>  = <A HREF="#v%3ANeuron"
+>Neuron</A
+> {<TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="recfield"
+><A HREF="#v%3Athreshold"
+>threshold</A
+> :: Double</TD
+></TR
+><TR
+><TD CLASS="recfield"
+><A HREF="#v%3Aweights"
+>weights</A
+> :: UArr Double</TD
+></TR
+><TR
+><TD CLASS="recfield"
+><A HREF="#v%3Afunc"
+>func</A
+> :: Double -&gt; Double</TD
+></TR
+></TABLE
+>}</TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3AcreateNeuron"
+>createNeuron</A
+> :: Double -&gt; UArr Double -&gt; (Double -&gt; Double) -&gt; <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3AcreateNeuronHeavyside"
+>createNeuronHeavyside</A
+> :: Double -&gt; UArr Double -&gt; <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3AcreateNeuronSigmoid"
+>createNeuronSigmoid</A
+> :: Double -&gt; UArr Double -&gt; <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3Aheavyside"
+>heavyside</A
+> :: Double -&gt; Double</TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3Asigmoid"
+>sigmoid</A
+> :: Double -&gt; Double</TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3Acompute"
+>compute</A
+> :: <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+> -&gt; UArr Double -&gt; Double</TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3Aalpha"
+>alpha</A
+> :: Double</TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3AlearnSample"
+>learnSample</A
+> :: <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+> -&gt; (UArr Double, Double) -&gt; <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3AlearnSamples"
+>learnSamples</A
+> :: <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+> -&gt; [(UArr Double, Double)] -&gt; <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+><A NAME="1"
+><A NAME="1"
+>Type Definitions and typeclass instances
+</A
+></A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+>  <A NAME="t:Neuron"
+><A NAME="t%3ANeuron"
+></A
+></A
+><B
+>Neuron</B
+>  </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="ndoc"
+>Our Artificial Neuron type
+</TD
+></TR
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="5" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v:Neuron"
+><A NAME="v%3ANeuron"
+></A
+></A
+><B
+>Neuron</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v:threshold"
+><A NAME="v%3Athreshold"
+></A
+></A
+><B
+>threshold</B
+> :: Double</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v:weights"
+><A NAME="v%3Aweights"
+></A
+></A
+><B
+>weights</B
+> :: UArr Double</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v:func"
+><A NAME="v%3Afunc"
+></A
+></A
+><B
+>func</B
+> :: Double -&gt; Double</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:Neuron')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:Neuron" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:createNeuron"
+><A NAME="v%3AcreateNeuron"
+></A
+></A
+><B
+>createNeuron</B
+> :: Double -&gt; UArr Double -&gt; (Double -&gt; Double) -&gt; <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+><TR
+><TD CLASS="doc"
+>Creates a Neuron with the given threshold, weights and transfer function
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:createNeuronHeavyside"
+><A NAME="v%3AcreateNeuronHeavyside"
+></A
+></A
+><B
+>createNeuronHeavyside</B
+> :: Double -&gt; UArr Double -&gt; <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+><TR
+><TD CLASS="doc"
+>Equivalent to `createNeuron t ws heavyside'
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:createNeuronSigmoid"
+><A NAME="v%3AcreateNeuronSigmoid"
+></A
+></A
+><B
+>createNeuronSigmoid</B
+> :: Double -&gt; UArr Double -&gt; <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+><TR
+><TD CLASS="doc"
+>Equivalent to `createNeuron t ws sigmoid'
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:heavyside"
+><A NAME="v%3Aheavyside"
+></A
+></A
+><B
+>heavyside</B
+> :: Double -&gt; Double</TD
+></TR
+><TR
+><TD CLASS="doc"
+>The Heavyside function
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:sigmoid"
+><A NAME="v%3Asigmoid"
+></A
+></A
+><B
+>sigmoid</B
+> :: Double -&gt; Double</TD
+></TR
+><TR
+><TD CLASS="doc"
+>The Sigmoid function
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:compute"
+><A NAME="v%3Acompute"
+></A
+></A
+><B
+>compute</B
+> :: <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+> -&gt; UArr Double -&gt; Double</TD
+></TR
+><TR
+><TD CLASS="doc"
+>Computes the output of a given Neuron for given inputs
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+><A NAME="2"
+><A NAME="2"
+>Single Neuron learning with Widrow-Hoff (Delta rule)
+</A
+></A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:alpha"
+><A NAME="v%3Aalpha"
+></A
+></A
+><B
+>alpha</B
+> :: Double</TD
+></TR
+><TR
+><TD CLASS="doc"
+>The learning coefficient, equals to 0.8 for the moment. TODO : make it a parameter of each learning functions
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:learnSample"
+><A NAME="v%3AlearnSample"
+></A
+></A
+><B
+>learnSample</B
+> :: <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+> -&gt; (UArr Double, Double) -&gt; <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+><TR
+><TD CLASS="doc"
+>Trains a neuron with the given sample, of the form (inputs, wanted_result)
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:learnSamples"
+><A NAME="v%3AlearnSamples"
+></A
+></A
+><B
+>learnSamples</B
+> :: <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+> -&gt; [(UArr Double, Double)] -&gt; <A HREF="Neuron.html#t%3ANeuron"
+>Neuron</A
+></TD
+></TR
+><TR
+><TD CLASS="doc"
+>Trains a neuron with the given samples
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="botbar"
+>Produced by <A HREF="http://www.haskell.org/haddock/"
+>Haddock</A
+> version 2.4.2</TD
+></TR
+></TABLE
+></BODY
+></HTML
+>
