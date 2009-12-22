@@ -1,0 +1,29 @@
+name: hnn
+version: 0.1
+license: LGPL
+copyright:
+maintainer: alpmestan@gmail.com
+stability:
+homepage:
+package-url:
+description: hnn provides minimal types and functions to create, train and use feed forward neural networks
+category: AI
+author: Alp Mestanogullari
+exposed: True
+exposed-modules: AI.HNN.Neuron AI.HNN.Layer AI.HNN.Net
+hidden-modules:
+import-dirs: /home/alp/.cabal/lib/hnn-0.1/ghc-6.10.4
+library-dirs: /home/alp/.cabal/lib/hnn-0.1/ghc-6.10.4
+hs-libraries: HShnn-0.1
+extra-libraries:
+extra-ghci-libraries:
+include-dirs:
+includes:
+depends: base-3.0.3.1 uvector-0.1.1.0
+hugs-options:
+cc-options:
+ld-options:
+framework-dirs:
+frameworks:
+haddock-interfaces: /home/alp/.cabal/share/doc/hnn-0.1/html/hnn.haddock
+haddock-html: /home/alp/.cabal/share/doc/hnn-0.1/html

@@ -1,0 +1,470 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--Rendered using the Haskell Html Library v0.2-->
+<HTML
+><HEAD
+><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"
+><TITLE
+>AI.HNN.Net</TITLE
+><LINK HREF="haddock.css" REL="stylesheet" TYPE="text/css"
+><SCRIPT SRC="haddock-util.js" TYPE="text/javascript"
+></SCRIPT
+><SCRIPT TYPE="text/javascript"
+>window.onload = function () {setSynopsis("mini_AI-HNN-Net.html")};</SCRIPT
+></HEAD
+><BODY
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="topbar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><IMG SRC="haskell_icon.gif" WIDTH="16" HEIGHT="16" ALT=" "
+></TD
+><TD CLASS="title"
+>hnn-0.1: A minimal Haskell Neural Network Library</TD
+><TD CLASS="topbut"
+><A HREF="index.html"
+>Contents</A
+></TD
+><TD CLASS="topbut"
+><A HREF="doc-index.html"
+>Index</A
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="modulebar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><FONT SIZE="6"
+>AI.HNN.Net</FONT
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+>Description</TD
+></TR
+><TR
+><TD CLASS="doc"
+>Net module, defining functions to work on a neural network, which is a list of list of neurons 
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+>Synopsis</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3Acheck"
+>check</A
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Bool.html#t%3ABool"
+>Bool</A
+></TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3Ann"
+>nn</A
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]]</TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3AcomputeNet"
+>computeNet</A
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+> -&gt; <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+></TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3AquadErrorNet"
+>quadErrorNet</A
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; (<A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>, <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>) -&gt; <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+></TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3AglobalQuadErrorNet"
+>globalQuadErrorNet</A
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; [(<A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>, <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>)] -&gt; <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+></TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3AbackProp"
+>backProp</A
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; (<A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>, <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>) -&gt; [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]]</TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3AtrainAux"
+>trainAux</A
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; [(<A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>, <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>)] -&gt; [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]]</TD
+></TR
+><TR
+><TD CLASS="s8"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="#v%3Atrain"
+>train</A
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; [(<A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>, <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>)] -&gt; [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]]</TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+>Documentation</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:check"
+><A NAME="v%3Acheck"
+></A
+></A
+><B
+>check</B
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Bool.html#t%3ABool"
+>Bool</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:nn"
+><A NAME="v%3Ann"
+></A
+></A
+><B
+>nn</B
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]]</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:computeNet"
+><A NAME="v%3AcomputeNet"
+></A
+></A
+><B
+>computeNet</B
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+> -&gt; <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+></TD
+></TR
+><TR
+><TD CLASS="doc"
+>Computes the output of the given neural net on the given inputs
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:quadErrorNet"
+><A NAME="v%3AquadErrorNet"
+></A
+></A
+><B
+>quadErrorNet</B
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; (<A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>, <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>) -&gt; <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+></TD
+></TR
+><TR
+><TD CLASS="doc"
+>Returns the quadratic error of the neural network on the given sample
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:globalQuadErrorNet"
+><A NAME="v%3AglobalQuadErrorNet"
+></A
+></A
+><B
+>globalQuadErrorNet</B
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; [(<A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>, <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>)] -&gt; <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+></TD
+></TR
+><TR
+><TD CLASS="doc"
+>Returns the quadratic error of the neural network on the given samples
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:backProp"
+><A NAME="v%3AbackProp"
+></A
+></A
+><B
+>backProp</B
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; (<A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>, <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>) -&gt; [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]]</TD
+></TR
+><TR
+><TD CLASS="doc"
+>Train the given neural network using the backpropagation algorithm on the given sample
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:trainAux"
+><A NAME="v%3AtrainAux"
+></A
+></A
+><B
+>trainAux</B
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; [(<A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>, <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>)] -&gt; [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]]</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v:train"
+><A NAME="v%3Atrain"
+></A
+></A
+><B
+>train</B
+> :: [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]] -&gt; [(<A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>, <A HREF="/home/alp/.cabal/share/doc/uvector-0.1.1.0/html/Data-Array-Vector-UArr.html#t%3AUArr"
+>UArr</A
+> <A HREF="/usr/share/doc/ghc/libraries/ghc-prim/GHC-Types.html#t%3ADouble"
+>Double</A
+>)] -&gt; [[<A HREF="AI-HNN-Neuron.html#t%3ANeuron"
+>Neuron</A
+>]]</TD
+></TR
+><TR
+><TD CLASS="doc"
+>Train the given neural network on the given samples using the backpropagation algorithm
+</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="botbar"
+>Produced by <A HREF="http://www.haskell.org/haddock/"
+>Haddock</A
+> version 2.4.2</TD
+></TR
+></TABLE
+></BODY
+></HTML
+>
