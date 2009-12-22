@@ -46,13 +46,9 @@ compute n inputs = error $ "Number of inputs != Number of weights\n" ++ show n +
 
 -- * Neuron learning with Widrow-Hoff (Delta rule)
 
--- | The learning coefficient, equals to 0.8 for the moment. TODO : make it a parameter of each learning functions
-alpha :: Double
-alpha = 0.8
-
--- | Trains a neuron with the given sample, of the form (inputs, wanted_result)
-learnSample :: Neuron -> (UArr Double, Double) -> Neuron
-learnSample n (xs, y) = Neuron { 
+-- | Trains a neuron with the given sample, of the form (inputs, wanted_result) and the given learning ratio (alpha)
+learnSample :: Double -> Neuron -> (UArr Double, Double) -> Neuron
+learnSample alpha n (xs, y) = Neuron { 
                           threshold = threshold n
                         , weights = map_weights (weights n) (xs, y) 
                         , func = func n
@@ -60,6 +56,6 @@ learnSample n (xs, y) = Neuron {
     where map_weights ws (xs, y) = let s = compute n xs in
                                    zipWithU (\w_i x_i -> w_i + alpha*(y-s)*x_i) ws xs
 
--- | Trains a neuron with the given samples
-learnSamples :: Neuron -> [(UArr Double, Double)] -> Neuron
-learnSamples = foldl' learnSample
+-- | Trains a neuron with the given samples and the given learning ratio (alpha)
+learnSamples :: Double -> Neuron -> [(UArr Double, Double)] -> Neuron
+learnSamples alpha = foldl' (learnSample alpha)

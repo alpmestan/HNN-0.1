@@ -10,13 +10,13 @@ import Data.List
 computeLayer :: [Neuron] -> UArr Double -> UArr Double
 computeLayer ns inputs = toU . map (\n -> compute n inputs) $ ns
 
--- | Trains each neuron with the given sample
-learnSampleLayer :: [Neuron] -> (UArr Double, UArr Double) -> [Neuron]
-learnSampleLayer ns (xs, ys) = zipWith (\n y -> learnSample n (xs, y)) ns (fromU ys)
+-- | Trains each neuron with the given sample and the given learning ratio
+learnSampleLayer :: Double -> [Neuron] -> (UArr Double, UArr Double) -> [Neuron]
+learnSampleLayer alpha ns (xs, ys) = zipWith (\n y -> learnSample alpha n (xs, y)) ns (fromU ys)
 
--- | Trains each neuron with the given samples
-learnSamplesLayer :: [Neuron] -> [(UArr Double, UArr Double)] -> [Neuron]
-learnSamplesLayer = foldl' learnSampleLayer
+-- | Trains each neuron with the given samples and the given learning ratio
+learnSamplesLayer :: Double -> [Neuron] -> [(UArr Double, UArr Double)] -> [Neuron]
+learnSamplesLayer alpha = foldl' (learnSampleLayer alpha)
 
 -- | Returns the quadratic error of a layer for a given sample
 quadError :: [Neuron] -> (UArr Double, UArr Double) -> Double

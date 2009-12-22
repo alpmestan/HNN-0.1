@@ -25,21 +25,20 @@ quadErrorNet nss (xs,ys) = (sumU . zipWithU (\y s -> (y - s)**2) ys $ computeNet
 globalQuadErrorNet :: [[Neuron]] -> [(UArr Double, UArr Double)] -> Double
 globalQuadErrorNet nss = sum . map (quadErrorNet nss)
 
--- | Train the given neural network using the backpropagation algorithm on the given sample
-backProp :: [[Neuron]] -> (UArr Double, UArr Double) -> [[Neuron]]
-backProp nss (xs, ys) = [aux (head nss) ds_hidden xs
+-- | Train the given neural network using the backpropagation algorithm on the given sample with the given learning ratio (alpha)
+backProp :: Double -> [[Neuron]] -> (UArr Double, UArr Double) -> [[Neuron]]
+backProp alpha nss (xs, ys) = [aux (head nss) ds_hidden xs
                         ,aux (nss !! 1) ds_out output_hidden]
     where 
       output_hidden = computeLayer (head nss) xs
       output_out = computeLayer (nss !! 1) output_hidden
       ds_out = zipWithU (\s y -> s * (1 - s) * (y - s)) output_out ys
-      -- ds_hidden = zipWithU (\x s -> x * (1-x) * s) output_hidden $ toU (map (sumU . zipWithU (*) ds_out . weights) (nss !! 1))
       ds_hidden = zipWithU (\x s -> x * (1-x) * s) output_hidden . toU $ map (sumU . zipWithU (*) ds_out) . map toU . transpose . map (fromU . weights) $ (nss !! 1)
       aux ns ds xs = zipWith (\n d -> n { weights = zipWithU (\w x -> w + alpha * d * x) (weights n) xs }) ns (fromU ds)
 
-trainAux :: [[Neuron]] -> [(UArr Double, UArr Double)] -> [[Neuron]]
-trainAux = foldl' backProp
+trainAux :: Double -> [[Neuron]] -> [(UArr Double, UArr Double)] -> [[Neuron]]
+trainAux alpha = foldl' (backProp alpha)
 
--- | Train the given neural network on the given samples using the backpropagation algorithm
-train :: [[Neuron]] -> [(UArr Double, UArr Double)] -> [[Neuron]]
-train nss samples = until (\nss' -> globalQuadErrorNet nss' samples < (0.1 :: Double)) (\nss' -> trainAux nss' samples) nss
+-- | Train the given neural network on the given samples using the backpropagation algorithm using the given learning ratio (alpha) and the given desired maximal bound for the global quadratic error on the samples (epsilon)
+train :: Double -> Double -> [[Neuron]] -> [(UArr Double, UArr Double)] -> [[Neuron]]
+train alpha epsilon nss samples = until (\nss' -> globalQuadErrorNet nss' samples < epsilon) (\nss' -> trainAux alpha nss' samples) nss
