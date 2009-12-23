@@ -7,9 +7,9 @@ license:             LGPL
 license-file:        LICENSE
 author:              Alp Mestanogullari
 maintainer:          alpmestan@gmail.com
-build-depends:       base
+build-depends:       base >= 3 && <= 5
 build-type:          Simple 
 cabal-version:       >= 1.2
 Library
-  Build-Depends:     uvector, base >= 3
+  Build-Depends:     uvector, base >= 3 && <= 5
   Exposed-modules:   AI.HNN.Neuron, AI.HNN.Layer, AI.HNN.Net
